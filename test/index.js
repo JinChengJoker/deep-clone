@@ -76,4 +76,15 @@ describe('测试深拷贝', () => {
     assert(d1.xxx.yyy !== d2.xxx.yyy)
     assert(d1.xxx.yyy.zzz === d2.xxx.yyy.zzz)
   })
+  it('跳过原型属性', () => {
+    const o1 = Object.create({ name: 'xxx' })
+    o1.xxx = { yyy: { zzz: 'aaa' } }
+    const o2 = deepClone(o1)
+    assert(o1 !== o2)
+    assert.isTrue('name' in o1)
+    assert.isFalse('name' in o2)
+    assert(o1.xxx !== o2.xxx)
+    assert(o1.xxx.yyy !== o2.xxx.yyy)
+    assert(o1.xxx.yyy.zzz === o2.xxx.yyy.zzz)
+  })
 })

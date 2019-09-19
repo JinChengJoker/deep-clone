@@ -15,7 +15,9 @@ function deepClone(resource) {
       result = new Object()
     }
     for (let key in resource) {
-      result[key] = deepClone(resource[key])
+      if(resource.hasOwnProperty(key)) {
+        result[key] = deepClone(resource[key])
+      }
     }
     return result
   }
