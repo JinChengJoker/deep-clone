@@ -20,6 +20,12 @@ function deepClone(resource) {
         result[key] = deepClone(resource[key])
       }
       return result
+    } else if (resource instanceof Date) {
+      const result = new Date(resource)
+      for (let key in resource) {
+        result[key] = deepClone(resource[key])
+      }
+      return result
     } else {
       const result = new Object()
       for (let key in resource) {

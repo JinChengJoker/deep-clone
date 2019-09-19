@@ -66,4 +66,14 @@ describe('测试深拷贝', () => {
     assert(reg1.xxx.yyy !== reg2.xxx.yyy)
     assert(reg1.xxx.yyy.zzz === reg2.xxx.yyy.zzz)
   })
+  it('拷贝日期', () => {
+    const d1 = new Date()
+    d1.xxx = { yyy: { zzz: 'aaa' } }
+    const d2 = deepClone(d1)
+    assert(d1 !== d2)
+    assert(d1.getTime() === d2.getTime())
+    assert(d1.xxx !== d2.xxx)
+    assert(d1.xxx.yyy !== d2.xxx.yyy)
+    assert(d1.xxx.yyy.zzz === d2.xxx.yyy.zzz)
+  })
 })
