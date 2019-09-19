@@ -6,6 +6,14 @@ function deepClone(resource) {
         result[key] = deepClone(resource[key])
       }
       return result
+    } else if (resource instanceof Function) {
+      let result = function() {
+        return resource.apply(this, arguments)
+      }
+      for (let key in resource) {
+        result[key] = deepClone(resource[key])
+      }
+      return result
     } else {
       let result = new Object()
       for (let key in resource) {

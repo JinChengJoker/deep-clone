@@ -43,4 +43,16 @@ describe('测试深拷贝', () => {
     assert(a1[2] !== a2[2])
     assert.deepEqual(a1, a2)
   })
+  it('拷贝函数', () => {
+    const f1 = (a, b) => {
+      return a + b
+    }
+    f1.xxx = { yyy: { zzz: 'aaa' } }
+    const f2 = deepClone(f1)
+    assert(f1 !== f2)
+    assert(f1(1, 2) === f2(1, 2))
+    assert(f1.xxx !== f2.xxx)
+    assert(f1.xxx.yyy !== f2.xxx.yyy)
+    assert(f1.xxx.yyy.zzz === f2.xxx.yyy.zzz)
+  })
 })
