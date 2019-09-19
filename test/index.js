@@ -34,4 +34,13 @@ describe('测试深拷贝', () => {
     assert(o1.child !== o2.child)
     assert(o1.child.name === o2.child.name)
   })
+  it('拷贝数组', () => {
+    const a1 = [[12, 23], [34, 45], [56, 67]]
+    const a2 = deepClone(a1)
+    assert(a1 !== a2)
+    assert(a1[0] !== a2[0])
+    assert(a1[1] !== a2[1])
+    assert(a1[2] !== a2[2])
+    assert.deepEqual(a1, a2)
+  })
 })
