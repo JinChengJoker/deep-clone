@@ -55,4 +55,15 @@ describe('测试深拷贝', () => {
     assert(f1.xxx.yyy !== f2.xxx.yyy)
     assert(f1.xxx.yyy.zzz === f2.xxx.yyy.zzz)
   })
+  it('拷贝正则表达式', () => {
+    const reg1 = /hi\d+/gi
+    reg1.xxx = { yyy: { zzz: 'aaa' } }
+    const reg2 = deepClone(reg1)
+    assert(reg1 !== reg2)
+    assert(reg1.source === reg2.source)
+    assert(reg1.flags === reg2.flags)
+    assert(reg1.xxx !== reg2.xxx)
+    assert(reg1.xxx.yyy !== reg2.xxx.yyy)
+    assert(reg1.xxx.yyy.zzz === reg2.xxx.yyy.zzz)
+  })
 })
