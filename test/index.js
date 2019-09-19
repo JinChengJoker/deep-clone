@@ -26,4 +26,12 @@ describe('测试深拷贝', () => {
     assert(b2 === b1)
     assert(empty2 === empty1)
   })
+  it('拷贝一般（狭义）对象', () => {
+    const o1 = { name: 'xxx', child: { name: 'zzz' } }
+    const o2 = deepClone(o1)
+    assert(o1 !== o2)
+    assert(o1.name === o2.name)
+    assert(o1.child !== o2.child)
+    assert(o1.child.name === o2.child.name)
+  })
 })
