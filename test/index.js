@@ -87,4 +87,14 @@ describe('测试深拷贝', () => {
     assert(o1.xxx.yyy !== o2.xxx.yyy)
     assert(o1.xxx.yyy.zzz === o2.xxx.yyy.zzz)
   })
+  it('环拷贝', () => {
+    const o1 = { name: 'xxx', child: { name: 'zzz' } }
+    o1.self = o1
+    const o2 = deepClone(o1)
+    assert(o1 !== o2)
+    assert(o1.name === o2.name)
+    assert(o1.child !== o2.child)
+    assert(o1.child.name === o2.child.name)
+    assert(o1.self !== o2.self)
+  })
 })
