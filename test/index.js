@@ -7,19 +7,20 @@ const assert = chai.assert
 
 describe('测试深拷贝', () => {
   it('成功引入深拷贝', () => {
-    assert.isFunction(deepClone)
+    assert.isObject(new deepClone())
   })
   it('拷贝基本类型', () => {
+    const clone = new deepClone().clone
     const s1 = 'xxx'
     const n1 = 123
     const u1 = undefined
     const b1 = true
     const empty1 = null
-    const s2 = deepClone(s1)
-    const n2 = deepClone(n1)
-    const u2 = deepClone(u1)
-    const b2 = deepClone(b1)
-    const empty2 = deepClone(empty1)
+    const s2 = clone(s1)
+    const n2 = clone(n1)
+    const u2 = clone(u1)
+    const b2 = clone(b1)
+    const empty2 = clone(empty1)
     assert(s2 === s1)
     assert(n2 === n1)
     assert(u2 === u1)
@@ -28,7 +29,7 @@ describe('测试深拷贝', () => {
   })
   it('拷贝一般（狭义）对象', () => {
     const o1 = { name: 'xxx', child: { name: 'zzz' } }
-    const o2 = deepClone(o1)
+    const o2 = new deepClone().clone(o1)
     assert(o1 !== o2)
     assert(o1.name === o2.name)
     assert(o1.child !== o2.child)
@@ -36,7 +37,7 @@ describe('测试深拷贝', () => {
   })
   it('拷贝数组', () => {
     const a1 = [[12, 23], [34, 45], [56, 67]]
-    const a2 = deepClone(a1)
+    const a2 = new deepClone().clone(a1)
     assert(a1 !== a2)
     assert(a1[0] !== a2[0])
     assert(a1[1] !== a2[1])
@@ -48,7 +49,7 @@ describe('测试深拷贝', () => {
       return a + b
     }
     f1.xxx = { yyy: { zzz: 'aaa' } }
-    const f2 = deepClone(f1)
+    const f2 = new deepClone().clone(f1)
     assert(f1 !== f2)
     assert(f1(1, 2) === f2(1, 2))
     assert(f1.xxx !== f2.xxx)
@@ -58,7 +59,7 @@ describe('测试深拷贝', () => {
   it('拷贝正则表达式', () => {
     const reg1 = /hi\d+/gi
     reg1.xxx = { yyy: { zzz: 'aaa' } }
-    const reg2 = deepClone(reg1)
+    const reg2 = new deepClone().clone(reg1)
     assert(reg1 !== reg2)
     assert(reg1.source === reg2.source)
     assert(reg1.flags === reg2.flags)
@@ -69,7 +70,7 @@ describe('测试深拷贝', () => {
   it('拷贝日期', () => {
     const d1 = new Date()
     d1.xxx = { yyy: { zzz: 'aaa' } }
-    const d2 = deepClone(d1)
+    const d2 = new deepClone().clone(d1)
     assert(d1 !== d2)
     assert(d1.getTime() === d2.getTime())
     assert(d1.xxx !== d2.xxx)
@@ -79,7 +80,7 @@ describe('测试深拷贝', () => {
   it('跳过原型属性', () => {
     const o1 = Object.create({ name: 'xxx' })
     o1.xxx = { yyy: { zzz: 'aaa' } }
-    const o2 = deepClone(o1)
+    const o2 = new deepClone().clone(o1)
     assert(o1 !== o2)
     assert.isTrue('name' in o1)
     assert.isFalse('name' in o2)
@@ -90,7 +91,7 @@ describe('测试深拷贝', () => {
   it('环拷贝', () => {
     const o1 = { name: 'xxx', child: { name: 'zzz' } }
     o1.self = o1
-    const o2 = deepClone(o1)
+    const o2 = new deepClone().clone(o1)
     assert(o1 !== o2)
     assert(o1.name === o2.name)
     assert(o1.child !== o2.child)
